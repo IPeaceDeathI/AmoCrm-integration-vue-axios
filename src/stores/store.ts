@@ -1,0 +1,45 @@
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+import type { Company, Contact, Lead } from '@/types'
+
+export const useAmoStore = defineStore('amo', () => {
+    const secret = ref('M1HW935ZUlknFH4XnulXWwWtAAfYB1GrQCOz89YFPzgxwu3JVNEkv59s8p4bO0Qn')
+    const integrationId = ref('918e2a4f-2784-420c-8220-42a3c07e0132')
+    const amoToken = ref(
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjRiZGM2OTM1ZTgyYzA5ZDliMjEyZTA3M2VmZjZkZGJlMmQxZDY5ZDgxY2M0Yjg1OTJiODZkZmJkNmMwOWI5ZmUwOTAyYTYwYTJlNTM5ZDg5In0.eyJhdWQiOiI5MThlMmE0Zi0yNzg0LTQyMGMtODIyMC00MmEzYzA3ZTAxMzIiLCJqdGkiOiI0YmRjNjkzNWU4MmMwOWQ5YjIxMmUwNzNlZmY2ZGRiZTJkMWQ2OWQ4MWNjNGI4NTkyYjg2ZGZiZDZjMDliOWZlMDkwMmE2MGEyZTUzOWQ4OSIsImlhdCI6MTcwODQxNDc2NSwibmJmIjoxNzA4NDE0NzY1LCJleHAiOjE4NjYyNDAwMDAsInN1YiI6IjEwNjk3NzE0IiwiZ3JhbnRfdHlwZSI6IiIsImFjY291bnRfaWQiOjMxNTgxMDU0LCJiYXNlX2RvbWFpbiI6ImFtb2NybS5ydSIsInZlcnNpb24iOjIsInNjb3BlcyI6WyJjcm0iLCJmaWxlcyIsImZpbGVzX2RlbGV0ZSIsIm5vdGlmaWNhdGlvbnMiLCJwdXNoX25vdGlmaWNhdGlvbnMiXSwiaGFzaF91dWlkIjoiOTg1N2VhMzUtMmJjMS00MmZkLTkyOTktYzQyZjRmODViODNjIn0.RPP3Elhds_AwvIZZ_J6xFp8kzvUhOTCDrN_1Kx60tk0FXURTfkWJWJhAjWP00HPAbE1QHO2DB-_0Sb93D4iKgQWA-bcH-SbdNrM6BRPLsdiYxVanrMle3Gyuwt7lPvk60_bpU5emVQGf6RWPBuI5pv4PllPLAIiEuXSQmxT8B7cTDbk52VR-TokF2WzuI7xQQzjCsqe08H7TB-N69GV4E4mc_O4LdgvVgdVgKlMj0z-Bp0OTxx0E7TLePwUxZj5HtDU_p5SqoaytorEps0kcjz9itEOHr9yD60rwKNB0xfhYab_1H9Ks7LPOEQ45YRJ_BvEDTlkz_z1mn8MFGqll-A'
+    )
+    const authCode = ref(
+        'def50200498f7e721800226a4521a01ec96736bd826a7d58b8adaba00029de40a6dcd7ff21b3f0014a3127b185d0a19dccbfe85e825ffe6a97270a216a4a7960458b1b0e51ba61baf6d37403bdcba2861d92f01e57cd5c864ef9266f8d98b007fc9b6ea56de5c5d94b601b8c7ce6a2cd29e316ff379672c7e5d7c2bc717e684a111c7e657b84dd7ac9186617cd80a5c13ca917bcfae074635bbcbc0afa23232be55bf55ee07fd32a8d2faecb7cdf6e64559796d68f12f039e9dd373af77b44c28eb0c19a9d1e843c7cac709836d2d3d783d15fbbad1c6a23d9d41dda7414ce897991d77c44ea412a48c70ef008f2f645d798d1a78eebf1bdfd77c83a56f15613977855b33b058d22e57f6e846bcefcd008d2febdeb11de71ebebef768601e37f2e6df12ee9cedc021f4a4c204b769a0e5cf4384b025a00bc4509bac9c4a7100b378a4dc7b6944dbc5d37319601b4160dc1ac9aa4eda03d81b1d673245c54feca137b7b430b8cf121f9f3a2e79c4c0e6d8e5cd6f7986347da9581bdd06c19bbf1218a155432666ecf7ccb2e6a762fec25f96f7df2f2aa97d13387a8e295a72c0f772f5c8bba31bae29eb3317f51eb3fdca3875a835d99385990d427d0888860d11d70df1d1c0c811d4d029f0f1b4e8f7a97546cd1313641b50b1e34114a6815d36417860b8453'
+    )
+    const accessToken = ref(
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYwNTI3OTllNjQwYTgzYTY3OTNlZTZmNTgxNDE4MjlmZTZhMTE0ZDgyM2RmNTAxZTg0OTcwZDA5ZWQ2MGRkZTk0NzA4YzZhNDZlZGVkNzU0In0.eyJhdWQiOiI5MThlMmE0Zi0yNzg0LTQyMGMtODIyMC00MmEzYzA3ZTAxMzIiLCJqdGkiOiJmMDUyNzk5ZTY0MGE4M2E2NzkzZWU2ZjU4MTQxODI5ZmU2YTExNGQ4MjNkZjUwMWU4NDk3MGQwOWVkNjBkZGU5NDcwOGM2YTQ2ZWRlZDc1NCIsImlhdCI6MTcwODQzNTcyNCwibmJmIjoxNzA4NDM1NzI0LCJleHAiOjE3MDg1MjIxMjQsInN1YiI6IjEwNjk3NzE0IiwiZ3JhbnRfdHlwZSI6IiIsImFjY291bnRfaWQiOjMxNTgxMDU0LCJiYXNlX2RvbWFpbiI6ImFtb2NybS5ydSIsInZlcnNpb24iOjIsInNjb3BlcyI6WyJwdXNoX25vdGlmaWNhdGlvbnMiLCJmaWxlcyIsImNybSIsImZpbGVzX2RlbGV0ZSIsIm5vdGlmaWNhdGlvbnMiXSwiaGFzaF91dWlkIjoiNzkyNjJmMjktYmM4Ni00ZjYwLWFlMGQtNDkzZDUwOGM1ODkwIn0.MbKa-jaYLOafqhD91r9mteuZLaOOxtR3oASRu6fSZDUSWdL-T5az993LENr-kHHmx18E2kXMBV7H9u-0PNiDI9J8RSsaUcA0ague3TblFbMk_-kLDR5yhXAbZL85WgR8O4VC0e1a5mSCLrwlRKnaQm9MMHX0lzr9h207w6L4cRzkZng1ILbiAl42G6cRQKHy8BNeyMoAvTiRFr73HXYtFuYpWSetLZqr-tKRWMI4lSucc-1GfjqX1YfebOvaUoCd9TJvjmbURkC9253TdsR1LBMcvNzocJGje2g8Sl7FWU5kSLfUrrV7iBVqUcSLamTprnyaHrSdHZHEfdXMg2iFLQ.eyJhdWQiOiI5MThlMmE0Zi0yNzg0LTQyMGMtODIyMC00MmEzYzA3ZTAxMzIiLCJqdGkiOiJiOTMzZDNkNzI2NDAwYzkwZTNhYTU4NzAyZDIxYjRlZjUyN2Q1MTM5YTIyMDZkMWU3MjJmNGUzMDQ4MWE5MDZkNjUyMTdhMDMzNDQyYzJlYiIsImlhdCI6MTcwODQyMjQ3MSwibmJmIjoxNzA4NDIyNDcxLCJleHAiOjE3MDg1MDg4NzAsInN1YiI6IjEwNjk3NzE0IiwiZ3JhbnRfdHlwZSI6IiIsImFjY291bnRfaWQiOjMxNTgxMDU0LCJiYXNlX2RvbWFpbiI6ImFtb2NybS5ydSIsInZlcnNpb24iOjIsInNjb3BlcyI6WyJwdXNoX25vdGlmaWNhdGlvbnMiLCJmaWxlcyIsImNybSIsImZpbGVzX2RlbGV0ZSIsIm5vdGlmaWNhdGlvbnMiXSwiaGFzaF91dWlkIjoiYzJmM2IxYmUtNmUyNS00MGUyLWI1ODgtOTE3ZjU2ZjExNzM0In0.R0X30kgGCLcdovq3TED1hTygeYX3EZ-UhXGf-AbccNyL_Oi4MHBBJ5JS1t9mH832DE8AH7I3bCRRbJeWYie_S30_7f_bZK291IRq_kvW7XPQaIrp5SrsFTZ7yFEx6v2OsunRWLiQ4pmYNEEk82xziEMIYDra-Xiqx_n0LDUkvXN0YN0VZk5a5VBahEfYtcba3sUMZNpHR7fgGMyiQqtVrf8goFlL1haToMq_aaphq9Z2F7AxWxcu-v1QUWcvhfbYDoL37A53gfO0czJheje6SibrnrCXMeiBfIu1IKsnuNCQkzklpuHmIlCPm3YD3csnPp7TO_y_9g99vc1lptFHQQ'
+    )
+    const ids = ref([''])
+    const chosenState = ref('')
+
+    const contacts = ref<Contact[]>([])
+    const companies = ref<Company[]>([])
+    const leads = ref<Lead[]>([])
+    const allInfo = ref<Array<Company | Contact | Lead>>([])
+
+    function showIds() {
+        ids.value.forEach((element: string) => {
+            console.log(element)
+        })
+    }
+
+    return {
+        secret,
+        authCode,
+        accessToken,
+        integrationId,
+        amoToken,
+        ids,
+        showIds,
+        chosenState,
+        contacts,
+        companies,
+        leads,
+        allInfo
+    }
+})
